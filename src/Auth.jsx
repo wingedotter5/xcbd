@@ -30,10 +30,16 @@ const Auth = () => {
       {loading ? (
         <h2>Loading...</h2>
       ) : (
-        <>
-          <form onSubmit={handleSignin}>
-            <label htmlFor="email">Email</label>
+        <div className="bg-slate-900 w-full h-screen flex items-center justify-center">
+          <form
+            onSubmit={handleSignin}
+            className="bg-white w-full p-5 rounded-md sm:w-96"
+          >
+            <label className="block mb-1" htmlFor="email">
+              Email
+            </label>
             <input
+              className="block focus:outline-none border-2 w-full px-3 py-1 rounded-sm mb-3"
               required
               id="email"
               type="email"
@@ -42,8 +48,11 @@ const Auth = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <label htmlFor="password">Password</label>
+            <label className="block mb-1" htmlFor="password">
+              Password
+            </label>
             <input
+              className="block focus:outline-none border-2 w-full px-3 py-1 rounded-sm"
               required
               id="password"
               type="password"
@@ -52,9 +61,11 @@ const Auth = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button>Sign in</button>
+            <button className="mt-4 bg-indigo-500 rounded-sm py-1 px-8 text-white">
+              Sign in
+            </button>
           </form>
-        </>
+        </div>
       )}
     </div>
   );
