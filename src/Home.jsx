@@ -36,7 +36,7 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <main className="bg-slate-500 h-screen p-4">
       <h1>Welcome</h1>
       <ul>
         {items.map((item) => (
@@ -50,7 +50,7 @@ const Home = () => {
       >
         Sign Out
       </button>
-    </>
+    </main>
   );
 };
 
