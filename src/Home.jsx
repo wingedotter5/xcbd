@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import CreateItemForm from "./CreateItemForm";
 import Item from "./Item";
 import supabase from "./supabaseClient";
 
-const Home = () => {
+const Home = ({ session }) => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -35,21 +36,31 @@ const Home = () => {
     };
   }, []);
 
+  async function addItem(title, content) {
+    const { error } = await supabase
+      .from("items")
+      .insert([{ title, content, user_id: session.user.id }]);
+    if (error) throw error;
+  }
+
   return (
-    <main className="bg-slate-500 h-screen p-4">
-      <h1>Welcome</h1>
+    <main className="bg-slate-500 p-4">
+      <header className="text-white flex justify-between px-8 py-4">
+        <h1 className="text-2xl font-bold">xcbd</h1>
+        <button
+          type="button"
+          className="button block"
+          onClick={() => supabase.auth.signOut()}
+        >
+          Sign Out
+        </button>
+      </header>
+      <CreateItemForm addItem={addItem} />
       <ul>
         {items.map((item) => (
           <Item key={Math.random()} item={item} />
         ))}
       </ul>
-      <button
-        type="button"
-        className="button block"
-        onClick={() => supabase.auth.signOut()}
-      >
-        Sign Out
-      </button>
     </main>
   );
 };
