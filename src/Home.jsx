@@ -44,7 +44,7 @@ const Home = ({ session }) => {
   }
 
   return (
-    <main className="bg-slate-500 p-4">
+    <main className="bg-slate-500 p-4 min-h-screen">
       <header className="text-white flex justify-between px-8 py-4">
         <h1 className="text-2xl font-bold">xcbd</h1>
         <button
