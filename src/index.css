@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Source Code Pro";
+  src: url("./assets/SourceCodePro.ttf");
+}
+
 pre {
   font-family: "Source Code Pro", monospace;
 }

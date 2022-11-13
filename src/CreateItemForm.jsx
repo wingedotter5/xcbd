@@ -1,13 +1,18 @@
 import { useState } from "react";
 
-const CreateItemForm = ({ addItem }) => {
+const CreateItemForm = ({ addItem, isSubmitted, setIsSubmitted }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
+    setIsSubmitted(true);
 
-    addItem(title, content);
+    try {
+      addItem(title, content);
+      setTitle("");
+      setContent("");
+    } catch (e) {}
   }
 
   return (
@@ -28,8 +33,12 @@ const CreateItemForm = ({ addItem }) => {
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="..."
+        required
       ></textarea>
-      <button className="text-white bg-blue-500 px-4 py-1 rounded-sm mt-2 w-full">
+      <button
+        disabled={isSubmitted}
+        className="text-white bg-blue-500 px-4 py-1 rounded-sm mt-2 w-full hover:bg-blue-600 disabled:opacity-5"
+      >
         Submit
       </button>
     </form>

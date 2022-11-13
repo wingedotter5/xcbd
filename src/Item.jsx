@@ -28,11 +28,11 @@ const Item = ({ item }) => {
 
   return (
     <li className="bg-slate-700 px-8 py-4 mb-4 rounded-lg">
-      <h1 className="text-white text-lg font-medium">{item.title}</h1>
-      <pre className="text-white overflow-auto">{item.content}</pre>
-      <button onClick={() => handleCopyClick(item.content)} className="mt-2">
+      <h1 className="text-white text-lg font-medium uppercase">{item.title}</h1>
+      <button onClick={() => handleCopyClick(item.content)}>
         <span className="text-sky-500">{isCopied ? "Copied!" : "Copy"}</span>
       </button>
+      <pre className="text-white overflow-auto">{item.content}</pre>
     </li>
   );
 };

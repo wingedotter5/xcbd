@@ -5,11 +5,15 @@ import supabase from "./supabaseClient";
 
 const Home = ({ session }) => {
   const [items, setItems] = useState([]);
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   useEffect(() => {
     // Fetch items
     const fetchItems = async () => {
-      const { data, error } = await supabase.from("items").select();
+      const { data, error } = await supabase
+        .from("items")
+        .select()
+        .order("created_at", { ascending: false });
       if (error) throw error;
       setItems(data);
     };
@@ -26,7 +30,7 @@ const Home = ({ session }) => {
           table: "items",
         },
         (payload) => {
-          setItems((prevItems) => [...prevItems, payload.new]);
+          setItems((prevItems) => [payload.new, ...prevItems]);
         }
       )
       .subscribe();
@@ -41,6 +45,7 @@ const Home = ({ session }) => {
       .from("items")
       .insert([{ title, content, user_id: session.user.id }]);
     if (error) throw error;
+    setIsSubmitted(false)
   }
 
   return (
@@ -55,7 +60,7 @@ const Home = ({ session }) => {
           Sign Out
         </button>
       </header>
-      <CreateItemForm addItem={addItem} />
+      <CreateItemForm addItem={addItem} isSubmitted={isSubmitted} setIsSubmitted={setIsSubmitted} />
       <ul>
         {items.map((item) => (
           <Item key={Math.random()} item={item} />
